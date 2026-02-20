@@ -1,4 +1,4 @@
-package com.pesexpo.testing1;
+package com.pesexpo.api;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

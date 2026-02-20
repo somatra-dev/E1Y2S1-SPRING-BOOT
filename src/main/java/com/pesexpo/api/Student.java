@@ -1,4 +1,4 @@
-package com.pesexpo.testing1;
+package com.pesexpo.api;
 
 public record Student(
 

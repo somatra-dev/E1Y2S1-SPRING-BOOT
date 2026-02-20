@@ -5,3 +5,8 @@ spring:
 
 server:
   port: 4040
+
+logging:
+  level:
+    com.pesexpo.api: TRACE
+
