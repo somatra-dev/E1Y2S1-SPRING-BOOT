@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: testing-1
+
+
+server:
+  port: 4040
