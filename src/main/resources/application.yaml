@@ -1,6 +1,6 @@
 spring:
   application:
-    name: testing-1
+    name: api-01
 
 
 server:
