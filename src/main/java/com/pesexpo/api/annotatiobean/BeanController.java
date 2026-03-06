@@ -1,4 +1,4 @@
-package com.pesexpo.api;
+package com.pesexpo.api.annotatiobean;
 
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -6,7 +6,7 @@ plugins {
 
 group = 'com.pes-expo'
 version = '0.0.1-SNAPSHOT'
-description = 'testing-1'
+description = 'a01-e1-api-01-1'
 
 java {
     toolchain {

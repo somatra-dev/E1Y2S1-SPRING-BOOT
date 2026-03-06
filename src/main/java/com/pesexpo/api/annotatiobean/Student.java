@@ -1,4 +1,4 @@
-package com.pesexpo.api;
+package com.pesexpo.api.annotatiobean;
 
 public record Student(
 
