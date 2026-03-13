@@ -1,4 +1,4 @@
-package com.pesexpo.api.structure.dto.request;
+package com.pesexpo.api.spring_structure.dto.request;
 
 import java.math.BigDecimal;
 

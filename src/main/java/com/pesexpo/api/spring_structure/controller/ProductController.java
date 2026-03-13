@@ -1,8 +1,8 @@
-package com.pesexpo.api.structure.controller;
+package com.pesexpo.api.spring_structure.controller;
 
-import com.pesexpo.api.structure.dto.request.CreateProduct;
-import com.pesexpo.api.structure.dto.request.UpdateProduct;
-import com.pesexpo.api.structure.dto.response.ProductResponse;
+import com.pesexpo.api.spring_structure.dto.request.CreateProduct;
+import com.pesexpo.api.spring_structure.dto.request.UpdateProduct;
+import com.pesexpo.api.spring_structure.dto.response.ProductResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
