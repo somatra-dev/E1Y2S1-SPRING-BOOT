@@ -1,0 +1,19 @@
+services:
+  e-com:
+    image: postgres:17.7
+    container_name: e-com
+    ports:
+      - "19999:5432"
+    environment:
+      POSTGRES_USER: ecom
+      POSTGRES_PASSWORD: ecom168
+      POSTGRES_DB: ecom
+    networks:
+      - e-banking
+    volumes:
+      - e-com_data:/var/lib/postgresql/data
+volumes:
+  e-com_data:
+networks:
+  e-banking:
+    external: true

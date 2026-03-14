@@ -2,6 +2,19 @@ spring:
   application:
     name: api-01
 
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:19999/ecom
+    username: ecom
+    password: ecom168
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        format_sql: true
+        show_sql: true
+
 
 server:
   port: 4040
