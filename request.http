@@ -8,3 +8,14 @@ GET http://localhost:4040/javabean/beans
 
 ###
 GET http://localhost:4040/products/100?name=Iphone17&price=1700
+
+### Product Crud
+POST http://localhost:4040//api/v1/products
+Content-Type: application/json
+{
+    "name": "Iphone17",
+    "price": 1700,
+    "qty": 100,
+    "description": "The latest iPhone model with advanced features and sleek design.",
+    "category": 1
+}

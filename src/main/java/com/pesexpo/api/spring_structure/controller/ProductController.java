@@ -3,6 +3,7 @@ package com.pesexpo.api.spring_structure.controller;
 import com.pesexpo.api.spring_structure.dto.request.CreateProduct;
 import com.pesexpo.api.spring_structure.dto.request.UpdateProduct;
 import com.pesexpo.api.spring_structure.dto.response.ProductResponse;
+import com.pesexpo.api.spring_structure.service.ProductService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +15,12 @@ import java.util.List;
 @RequestMapping("/api/v1/products")
 @Slf4j
 public class ProductController {
+
+    private final ProductService productService;
+
+    public ProductController(ProductService productService) {
+        this.productService = productService;
+    }
 
     @GetMapping
     public List<ProductResponse> getProducts(
@@ -41,7 +48,7 @@ public class ProductController {
             @RequestBody CreateProduct createProduct
     ) {
         log.info("Create product {}", createProduct);
-        return null;
+        return productService.create(createProduct);
     }
 
     @PatchMapping("/{code}")
