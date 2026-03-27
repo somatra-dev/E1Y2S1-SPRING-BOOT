@@ -3,8 +3,10 @@ package com.pesexpo.api.spring_structure.service.impl;
 import com.pesexpo.api.spring_structure.domain.CategoryEntity;
 import com.pesexpo.api.spring_structure.domain.ProductEntity;
 import com.pesexpo.api.spring_structure.dto.request.CreateProduct;
+import com.pesexpo.api.spring_structure.dto.request.PatchUpdateProduct;
 import com.pesexpo.api.spring_structure.dto.request.UpdateProduct;
 import com.pesexpo.api.spring_structure.dto.response.ProductResponse;
+import com.pesexpo.api.spring_structure.mapper.ProductMapper;
 import com.pesexpo.api.spring_structure.repository.CategoryRepository;
 import com.pesexpo.api.spring_structure.repository.ProductRepository;
 import com.pesexpo.api.spring_structure.service.ProductService;
@@ -21,11 +23,13 @@ public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
     private final CategoryRepository categoryRepository;
+    private final ProductMapper productMapper;
 
     public ProductServiceImpl (ProductRepository productRepository
-                               , CategoryRepository categoryRepository) {
+                               , CategoryRepository categoryRepository, ProductMapper productMapper) {
         this.productRepository = productRepository;
         this.categoryRepository = categoryRepository;
+        this.productMapper = productMapper;
     }
 
     @Override
@@ -70,8 +74,6 @@ public class ProductServiceImpl implements ProductService {
     }
 
 
-
-
     @Override
     public String deleteProductByCode(String code) {
         // 1. Validation if code don't have
@@ -99,6 +101,17 @@ public class ProductServiceImpl implements ProductService {
         product = productRepository.save(product);
 
         return this.productToProductResponse(product);
+    }
+
+    @Override
+    public ProductResponse patchProductByCode(String code, PatchUpdateProduct patchUpdateProduct) {
+
+        ProductEntity product = productRepository.findById(code).orElseThrow(() ->
+                new ResponseStatusException(HttpStatus.NOT_FOUND, "Code Not Found"));
+        productMapper.patchUpdateToProductEntity(product, patchUpdateProduct);
+        product = productRepository.save(product);
+
+        return productToProductResponse(product);
     }
 
     public ProductResponse productToProductResponse(ProductEntity product) {
