@@ -3,6 +3,7 @@ package com.pesexpo.api.spring_structure.service.impl;
 import com.pesexpo.api.spring_structure.domain.CategoryEntity;
 import com.pesexpo.api.spring_structure.domain.ProductEntity;
 import com.pesexpo.api.spring_structure.dto.request.CreateProduct;
+import com.pesexpo.api.spring_structure.dto.request.UpdateProduct;
 import com.pesexpo.api.spring_structure.dto.response.ProductResponse;
 import com.pesexpo.api.spring_structure.repository.CategoryRepository;
 import com.pesexpo.api.spring_structure.repository.ProductRepository;
@@ -68,17 +69,7 @@ public class ProductServiceImpl implements ProductService {
                 .map(this::productToProductResponse);
     }
 
-    public ProductResponse productToProductResponse(ProductEntity product) {
-        return ProductResponse.builder()
-                .code(product.getCode())
-                .name(product.getName())
-                .price(product.getPrice())
-                .qty(product.getQty())
-                .description(product.getDescription())
-                .isAvailable(product.getIsAvailable())
-                .categoryName(product.getCategory().getName())
-                .build();
-    }
+
 
 
     @Override
@@ -96,5 +87,37 @@ public class ProductServiceImpl implements ProductService {
         ProductEntity product = productRepository.findById(code).orElseThrow(() ->
                 new ResponseStatusException(HttpStatus.NOT_FOUND, "Code Not Found"));
         return this.productToProductResponse(product);
+    }
+
+    @Override
+    public ProductResponse updateProductByCode(String code, UpdateProduct updateProduct) {
+        ProductEntity product = productRepository.findById(code)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Code Not Found"));
+
+        this.updateProductToProductEntity(product, updateProduct);
+
+        product = productRepository.save(product);
+
+        return this.productToProductResponse(product);
+    }
+
+    public ProductResponse productToProductResponse(ProductEntity product) {
+        return ProductResponse.builder()
+                .code(product.getCode())
+                .name(product.getName())
+                .price(product.getPrice())
+                .qty(product.getQty())
+                .description(product.getDescription())
+                .isAvailable(product.getIsAvailable())
+                .categoryName(product.getCategory().getName())
+                .build();
+    }
+
+    public void updateProductToProductEntity(ProductEntity entity, UpdateProduct updateProduct) {
+
+        entity.setName(updateProduct.name());
+        entity.setPrice(updateProduct.price());
+        entity.setQty(updateProduct.qty());
+
     }
 }

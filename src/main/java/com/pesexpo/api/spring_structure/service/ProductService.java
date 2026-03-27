@@ -1,6 +1,7 @@
 package com.pesexpo.api.spring_structure.service;
 
 import com.pesexpo.api.spring_structure.dto.request.CreateProduct;
+import com.pesexpo.api.spring_structure.dto.request.UpdateProduct;
 import com.pesexpo.api.spring_structure.dto.response.ProductResponse;
 import org.springframework.data.domain.Page;
 
@@ -13,5 +14,7 @@ public interface ProductService {
     String deleteProductByCode(String code);
 
     ProductResponse getProductByCode(String code);
+
+    ProductResponse updateProductByCode(String code, UpdateProduct updateProduct);
 
 }

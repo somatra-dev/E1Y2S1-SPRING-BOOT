@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 
 public record UpdateProduct(
         BigDecimal price,
-        String name
+        String name,
+        Integer qty
 ) {
 }

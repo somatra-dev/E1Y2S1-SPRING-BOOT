@@ -33,14 +33,11 @@ public class ProductController {
     }
 
     @GetMapping("/{code}")
-    public ProductResponse getProduct(
-            @PathVariable() Integer code,
-            @RequestParam(defaultValue = "Somatra", required = false) String name,
-            @RequestParam(defaultValue = "0", required = false) BigDecimal price
-    ) {
+    public ProductResponse getProductByCode(@PathVariable String code) {
+
         log.info("Get product by code {}", code);
 
-        return null;
+        return productService.getProductByCode(code);
     }
 
     @ResponseStatus(HttpStatus.CREATED)
@@ -58,7 +55,7 @@ public class ProductController {
             @RequestBody UpdateProduct updateProduct
     ){
         log.info("Update product : {}", updateProduct);
-        return null;
+        return productService.updateProductByCode(code, updateProduct);
     }
 
     @PatchMapping("/{code}")
