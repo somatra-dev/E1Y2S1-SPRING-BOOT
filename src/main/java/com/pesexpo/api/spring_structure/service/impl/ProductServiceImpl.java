@@ -25,15 +25,15 @@ public class ProductServiceImpl implements ProductService {
     private final CategoryRepository categoryRepository;
     private final ProductMapper productMapper;
 
-    public ProductServiceImpl (ProductRepository productRepository
-                               , CategoryRepository categoryRepository, ProductMapper productMapper) {
+    public ProductServiceImpl(ProductRepository productRepository
+            , CategoryRepository categoryRepository, ProductMapper productMapper) {
         this.productRepository = productRepository;
         this.categoryRepository = categoryRepository;
         this.productMapper = productMapper;
     }
 
     @Override
-    public ProductResponse create(CreateProduct createProduct)  {
+    public ProductResponse create(CreateProduct createProduct) {
         // validation category by id
         CategoryEntity categoryEntity = categoryRepository.findCategoryEntitiesById(createProduct.categoryId())
                 .orElseThrow(() -> new ResponseStatusException(
@@ -106,8 +106,22 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ProductResponse patchProductByCode(String code, PatchUpdateProduct patchUpdateProduct) {
 
+        // validation product by code
         ProductEntity product = productRepository.findById(code).orElseThrow(() ->
                 new ResponseStatusException(HttpStatus.NOT_FOUND, "Code Not Found"));
+
+        // validation category by id
+
+        if (patchUpdateProduct.categoryId() != null) {
+            CategoryEntity categoryEntity = categoryRepository.findCategoryEntitiesById(patchUpdateProduct.categoryId())
+                    .orElseThrow(() -> new ResponseStatusException(
+                            HttpStatus.NOT_FOUND,
+                            "Category with id " + patchUpdateProduct.categoryId() + " not found"));
+
+
+            categoryRepository.save(categoryEntity);
+        }
+
         productMapper.patchUpdateToProductEntity(product, patchUpdateProduct);
         product = productRepository.save(product);
 

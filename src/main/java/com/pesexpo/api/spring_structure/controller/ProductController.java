@@ -1,6 +1,7 @@
 package com.pesexpo.api.spring_structure.controller;
 
 import com.pesexpo.api.spring_structure.dto.request.CreateProduct;
+import com.pesexpo.api.spring_structure.dto.request.PatchUpdateProduct;
 import com.pesexpo.api.spring_structure.dto.request.UpdateProduct;
 import com.pesexpo.api.spring_structure.dto.response.ProductResponse;
 import com.pesexpo.api.spring_structure.service.ProductService;
@@ -61,10 +62,10 @@ public class ProductController {
     @PatchMapping("/{code}")
     public ProductResponse patchProduct(
             @PathVariable String code,
-            @RequestBody UpdateProduct updateProduct
+            @RequestBody PatchUpdateProduct patchUpdateProduct
     ){
-        log.info("Patch Product : {}", updateProduct);
-        return null;
+        log.info("Patch Product : {}", patchUpdateProduct);
+        return productService.patchProductByCode(code, patchUpdateProduct);
     }
 
     @DeleteMapping("{code}")

@@ -13,7 +13,9 @@ public record PatchUpdateProduct(
 
         Integer qty,
         String description,
-        Boolean isAvailable
+        Boolean isAvailable,
+
+        Integer categoryId
 
 ) {
 }
