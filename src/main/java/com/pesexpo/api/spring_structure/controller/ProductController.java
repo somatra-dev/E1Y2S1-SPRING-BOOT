@@ -52,23 +52,26 @@ public class ProductController {
         return productService.create(createProduct);
     }
 
-    @PatchMapping("/{code}")
-    public ProductResponse updateProduct(@RequestBody UpdateProduct updateProduct,
-                                         @PathVariable Integer code) {
-        log.info("Update partially product by code {}", code);
-        return null;
-    }
-
     @PutMapping("/{code}")
-    public ProductResponse updateProductAll(@RequestBody UpdateProduct updateProduct,
-                                         @PathVariable Integer code) {
-        log.info("Update product by code {}", updateProduct);
+    public ProductResponse updateProduct(
+            @PathVariable String code,
+            @RequestBody UpdateProduct updateProduct
+    ){
+        log.info("Update product : {}", updateProduct);
         return null;
     }
 
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    @DeleteMapping("/{code}")
-    public void deleteProduct(@PathVariable Integer code) {
-        log.info("Delete product by code {}", code);
+    @PatchMapping("/{code}")
+    public ProductResponse patchProduct(
+            @PathVariable String code,
+            @RequestBody UpdateProduct updateProduct
+    ){
+        log.info("Patch Product : {}", updateProduct);
+        return null;
+    }
+
+    @DeleteMapping("{code}")
+    public String deleteProductByCode(@PathVariable String code){
+        return productService.deleteProductByCode(code);
     }
 }

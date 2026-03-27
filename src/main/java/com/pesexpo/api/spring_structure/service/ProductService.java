@@ -10,4 +10,8 @@ public interface ProductService {
 
     Page<ProductResponse> getAll(Integer pageNumber, Integer pageSize);
 
+    String deleteProductByCode(String code);
+
+    ProductResponse getProductByCode(String code);
+
 }

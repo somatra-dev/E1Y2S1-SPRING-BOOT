@@ -79,4 +79,22 @@ public class ProductServiceImpl implements ProductService {
                 .categoryName(product.getCategory().getName())
                 .build();
     }
+
+
+    @Override
+    public String deleteProductByCode(String code) {
+        // 1. Validation if code don't have
+        ProductEntity product = productRepository.findById(code).orElseThrow(() ->
+                new ResponseStatusException(HttpStatus.NOT_FOUND, "Code Not Found"));
+        productRepository.delete(product);
+        return code;
+    }
+
+    @Override
+    public ProductResponse getProductByCode(String code) {
+        // 1. validation if code don't have
+        ProductEntity product = productRepository.findById(code).orElseThrow(() ->
+                new ResponseStatusException(HttpStatus.NOT_FOUND, "Code Not Found"));
+        return this.productToProductResponse(product);
+    }
 }
