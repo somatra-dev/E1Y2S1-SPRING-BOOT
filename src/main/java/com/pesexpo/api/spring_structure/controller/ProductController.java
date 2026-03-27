@@ -5,6 +5,7 @@ import com.pesexpo.api.spring_structure.dto.request.UpdateProduct;
 import com.pesexpo.api.spring_structure.dto.response.ProductResponse;
 import com.pesexpo.api.spring_structure.service.ProductService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,12 +24,12 @@ public class ProductController {
     }
 
     @GetMapping
-    public List<ProductResponse> getProducts(
-            @RequestParam(defaultValue = "", required = false) Integer pageNumber,
-            @RequestParam(defaultValue = "0", required = false) Integer pageSize
+    public Page<ProductResponse> getProducts(
+            @RequestParam(defaultValue = "0", required = false) Integer pageNumber,
+            @RequestParam(defaultValue = "10", required = false) Integer pageSize
     ) {
         log.info("Get products request");
-        return List.of();
+        return productService.getAll(pageNumber, pageSize);
     }
 
     @GetMapping("/{code}")

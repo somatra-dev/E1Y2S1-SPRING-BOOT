@@ -11,7 +11,7 @@ public record ProductResponse(
         BigDecimal price,
         Integer qty,
         String description,
-        String categoryId,
+        String categoryName,
         Boolean isAvailable
 ) {
 }

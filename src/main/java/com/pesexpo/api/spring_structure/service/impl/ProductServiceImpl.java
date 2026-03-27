@@ -8,6 +8,9 @@ import com.pesexpo.api.spring_structure.repository.CategoryRepository;
 import com.pesexpo.api.spring_structure.repository.ProductRepository;
 import com.pesexpo.api.spring_structure.service.ProductService;
 import com.pesexpo.api.spring_structure.util.GenerateUtil;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -52,7 +55,28 @@ public class ProductServiceImpl implements ProductService {
                 .qty(saveProduct.getQty())
                 .description(saveProduct.getDescription())
                 .isAvailable(saveProduct.getIsAvailable())
-                .categoryId(saveProduct.getCategory().getName())
+                .categoryName(saveProduct.getCategory().getName())
+                .build();
+    }
+
+    @Override
+    public Page<ProductResponse> getAll(Integer pageNumber, Integer pageSize) {
+
+        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+
+        return productRepository.findAll(pageable)
+                .map(this::productToProductResponse);
+    }
+
+    public ProductResponse productToProductResponse(ProductEntity product) {
+        return ProductResponse.builder()
+                .code(product.getCode())
+                .name(product.getName())
+                .price(product.getPrice())
+                .qty(product.getQty())
+                .description(product.getDescription())
+                .isAvailable(product.getIsAvailable())
+                .categoryName(product.getCategory().getName())
                 .build();
     }
 }
